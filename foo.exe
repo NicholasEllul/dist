@@ -10,7 +10,7 @@
     <p id="output"></p>
 
     <script>
-        alert(document.domain)
+        alert("Domain: " + document.domain)
     </script>
 </body>
 </html>
