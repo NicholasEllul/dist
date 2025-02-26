@@ -1,0 +1,35 @@
+<html>
+
+<head>
+  <script src="https://c0f4f41c-2f55-4863-921b-sdk-docs.github.io/cdn/metamask-sdk.js"></script>
+  <script>
+    const MMSDK = new MetaMaskSDK.MetaMaskSDK({
+      dappMetadata: {
+        name: "Example Pure JS Dapp",
+        description: "An example of a pure JS Dapp",
+      },
+    });
+
+    MMSDK.connect();
+
+    async function snap() {
+      const provider = MMSDK.getProvider()
+
+      await provider.request({
+        method: "wallet_requestSnaps",
+          params: {
+            "npm:@metamask/bitcoin-wallet-snap": {},
+          },
+        })
+    }
+  </script>
+</head>
+
+<body>
+  <h1>Example Pure JS Dapp</h1>
+  <p>Step 1: Using MetaMask Mobile (Flask) connect to this dApp using MetaMask SDK</p>
+
+  <button onclick="snap()">Step 2: Click here to connect to a snap</button>
+</body>
+
+</html>
