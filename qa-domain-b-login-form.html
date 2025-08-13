@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QA Test - Domain B Form</title>
+    <style>
+        body { 
+            font-family: Arial, sans-serif; 
+            padding: 20px; 
+            background: linear-gradient(135deg, #ff6b6b 0%, #ee5a24 100%);
+            color: white;
+            margin: 0;
+        }
+        .container { 
+            max-width: 350px; 
+            margin: 0 auto; 
+            background: rgba(255,255,255,0.1); 
+            padding: 25px; 
+            border-radius: 10px; 
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+        .domain-badge { 
+            background: #dc3545; 
+            color: white; 
+            padding: 8px 16px; 
+            border-radius: 20px; 
+            font-size: 0.9em; 
+            display: inline-block; 
+            margin-bottom: 20px; 
+            text-align: center;
+            width: 100%;
+            box-sizing: border-box;
+        }
+        .form-group { margin: 15px 0; }
+        .form-group label { 
+            display: block; 
+            margin-bottom: 8px; 
+            font-weight: bold; 
+        }
+        .form-group input { 
+            width: 100%; 
+            padding: 12px; 
+            border: 2px solid rgba(255,255,255,0.3); 
+            border-radius: 5px; 
+            background: rgba(255,255,255,0.9); 
+            color: #333; 
+            font-size: 16px; 
+            box-sizing: border-box;
+        }
+        .form-group input:focus {
+            border-color: #fff;
+            background: rgba(255,255,255,1);
+            outline: none;
+        }
+        .btn { 
+            width: 100%; 
+            background: #dc3545; 
+            color: white; 
+            padding: 12px; 
+            border: none; 
+            border-radius: 5px; 
+            font-size: 16px; 
+            cursor: pointer; 
+            font-weight: bold;
+        }
+        .btn:hover { background: #c82333; }
+        .test-info {
+            background: rgba(255,255,255,0.2);
+            padding: 12px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            font-size: 0.9em;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="domain-badge">🚨 DOMAIN B</div>
+        
+        <div class="test-info">
+            <strong>QA Test Point:</strong><br>
+            Click username field - MetaMask should NOT offer Domain A autofill
+        </div>
+
+        <form id="loginForm">
+            <div class="form-group">
+                <label for="username">Username:</label>
+                <input type="text" id="username" name="username" autocomplete="username" placeholder="Click here to test autofill">
+            </div>
+            
+            <div class="form-group">
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password" autocomplete="current-password" placeholder="Should NOT autofill from Domain A">
+            </div>
+            
+            <button type="submit" class="btn">Submit</button>
+        </form>
+    </div>
+
+    <script>
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            
+            if (username && password) {
+                alert('✅ Form submitted from Domain B\n\nIf this contained Domain A credentials, the vulnerability exists.');
+            } else {
+                alert('ℹ️ Empty form submitted - this is expected if autofill was correctly blocked.');
+            }
+        });
+        
+        // Highlight when user clicks username field (main test point)
+        document.getElementById('username').addEventListener('click', function() {
+            this.style.borderColor = '#ffc107';
+            this.style.background = 'rgba(255,255,255,1)';
+        });
+    </script>
+</body>
+</html>
